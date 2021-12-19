@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <style>
+	body{font-family: Arial;}
+  </style>
+</head>
+<body>
+  <h3>Mensajes:</h3>
+  <ul id="listado-msjs">
+    
+  </ul>
+  <div id="env-msjs">
+	  <input id="nuevo-msj"  placeholder="Nuevo mensaje">
+	  <button id="btn-msj" onclick="enviarMensaje()">Enviar</button>
+  </div>
+  
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('nuevo mensaje', function (msj) {
+      $('#listado-msjs').append( $('<li>').text(msj) );
+    });
+    function enviarMensaje() {
+        socket.emit('nuevo mensaje', $('#nuevo-msj').val());
+        $('#nuevo-msj').val('');
+    };
+  </script>
+</body>
+</html>
